@@ -1,12 +1,24 @@
 # Tactical Football Pitch Analyzer
 
-Interactive Java Swing visualizer modeling spatial control, passing lanes, and live match stats on a 105m x 68m pitch.
+An interactive Java Swing desktop application that models pitch space control, passing lanes, and live match telemetry on a scaled `105m × 68m` football pitch.
 
-## Features
-- Dynamic Voronoi territory calculation and live territory %
-- Interactive player dragging and click-to-switch ball carrier
-- Passing lane detection using vector projection (2.2m interception threshold)
-- Live HUD overlay for territory, open/blocked lanes, and ball carrier
+## What It Does
+- **Startup Role Selection:** Prompts for a main player/role on launch (defaulting to `CM (You)` if left blank) and sets them as the initial ball carrier.
+- **Voronoi Territory Mapping:** Computes real-time spatial control between Home and Away players and updates live territory percentages.
+- **Interactive Pitch Controls:** Drag any player to reshape space and passing options, or click a player to switch the active ball carrier.
+- **Passing Lane & Interception Detection:** Evaluates the 3 nearest teammates and marks lanes as open (green) or blocked (red dashed) using a `2.2m` interception threshold.
+- **Live HUD Overlay:** Displays ball carrier, territory percentages, and open/blocked lane counts over the pitch using semi-transparent styling.
+
+## How It's Built
+- **UI & 2D Graphics (`Java Swing` / `AWT`):** Built around a custom `JPanel` overriding `paintComponent` with `Graphics2D` shapes, lines, arrows, text, and alpha transparency.
+- **Coordinate Scaling (`105m × 68m`):** Maps window pixel coordinates to pitch meter coordinates so spatial logic stays consistent across window sizes.
+- **Spatial Partitioning (Voronoi Grid):** Evaluates grid points across the pitch against player positions to determine nearest-player ownership and territory share.
+- **Event Handling (`MouseListener` & `MouseMotionListener`):** Uses press/drag/release state and a drag flag to separate moving players from clicking to switch ball possession.
+- **Vector Projection & Segment Distance:** Projects opponent coordinates onto pass segments (clamping `t` to `[0, 1]`) to measure distance to the lane and detect `2.2m` interceptions.
+
+## How to Run
+1. Open the `.java` source files in your Java IDE (such as IntelliJ IDEA) or compile them with `javac`.
+2. Run the main application class to launch the Swing window.
 -----------------------------------------------------------------------------------------------------------------------------------------
 *How It's Built*
 
